@@ -45,6 +45,7 @@ class RadarChartViewController: DemoBaseViewController {
         chartView.innerWebColor = .lightGray
         chartView.webAlpha = 1
         
+        
         let marker = RadarMarkerView.viewFromXib()!
         marker.chartView = chartView
         chartView.marker = marker
@@ -55,6 +56,7 @@ class RadarChartViewController: DemoBaseViewController {
         xAxis.yOffset = 0
         xAxis.valueFormatter = self
         xAxis.labelTextColor = .white
+        xAxis.labelBackgroundColor = .red
         
         let yAxis = chartView.yAxis
         yAxis.labelFont = .systemFont(ofSize: 9, weight: .light)

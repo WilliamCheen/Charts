@@ -35,6 +35,8 @@ open class XAxisRendererRadarChart: XAxisRenderer
         let labelTextColor = axis.labelTextColor
         let labelRotationAngleRadians = axis.labelRotationAngle.RAD2DEG
         let drawLabelAnchor = CGPoint(x: 0.5, y: 0.25)
+        let labelBackgroundColor = axis.labelBackgroundColor
+        let labelBackgroundInset = axis.labelBackgroundInset
         
         let sliceangle = chart.sliceAngle
         
@@ -43,11 +45,24 @@ open class XAxisRendererRadarChart: XAxisRenderer
         
         let center = chart.centerOffsets
         
+        let bgHorizon = labelBackgroundInset.left + labelBackgroundInset.right
+        let bgVertical = labelBackgroundInset.top + labelBackgroundInset.bottom
+        
         for i in 0..<(chart.data?.maxEntryCountSet?.entryCount ?? 0)
         {
             let label = axis.valueFormatter?.stringForValue(Double(i), axis: axis) ?? ""
             let angle = (sliceangle * CGFloat(i) + chart.rotationAngle).truncatingRemainder(dividingBy: 360.0)
             let p = center.moving(distance: CGFloat(chart.yRange) * factor + axis.labelRotatedWidth / 2.0, atAngle: angle)
+            
+            let bgX = p.x - axis.labelRotatedWidth / 2.0 - labelBackgroundInset.left
+            let bgY = p.y - axis.labelHeight * 0.65 - labelBackgroundInset.top
+            let bgW = axis.labelWidth
+            let bgFrame = CGRectMake(bgX, bgY, axis.labelRotatedWidth + bgHorizon, axis.labelRotatedHeight + bgVertical)
+            let path = UIBezierPath(roundedRect: bgFrame, cornerRadius: 2).cgPath
+            context.addPath(path)
+            context.setFillColor(labelBackgroundColor.cgColor)
+            context.fillPath()
+            
 
             drawLabel(context: context,
                       formattedLabel: label,
