@@ -55,8 +55,7 @@ open class XAxisRendererRadarChart: XAxisRenderer
             let p = center.moving(distance: CGFloat(chart.yRange) * factor + axis.labelRotatedWidth / 2.0, atAngle: angle)
             
             let bgX = p.x - axis.labelRotatedWidth / 2.0 - labelBackgroundInset.left
-            let bgY = p.y - axis.labelHeight * 0.65 - labelBackgroundInset.top
-            let bgW = axis.labelWidth
+            let bgY = p.y - axis.labelHeight * 0.7 - labelBackgroundInset.top
             let bgFrame = CGRectMake(bgX, bgY, axis.labelRotatedWidth + bgHorizon, axis.labelRotatedHeight + bgVertical)
             let path = UIBezierPath(roundedRect: bgFrame, cornerRadius: 2).cgPath
             context.addPath(path)
